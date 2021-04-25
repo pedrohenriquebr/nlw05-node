@@ -4,8 +4,12 @@ class SettingsController {
     async create(req: Request, res: Response) {
         const { username, chat } = req.body;
         const service = new SettingsService();
-        const settings = await service.create({ username, chat });
-        return res.json(settings);
+        try {
+            const settings = await service.create({ username, chat });
+            return res.json(settings);
+        } catch (err) {
+            res.status(400).json({message: err.message});
+        }
     }
 }
 
