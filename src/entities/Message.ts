@@ -33,9 +33,7 @@ class Message {
 
 
     constructor() {
-        if (!this.id) {
-            this.id = uuid();
-        }
+        this.id = this.id || uuid();
     }
 }
 

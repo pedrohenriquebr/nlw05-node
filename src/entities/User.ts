@@ -13,9 +13,7 @@ class User {
     created_at: Date;
 
     constructor() {
-        if (!this.id) {
-            this.id = uuid();
-        }
+        this.id = this.id || uuid();
     }
 }
 
