@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { SettingsService } from "../services/SettingsService";
+
 class SettingsController {
     async create(req: Request, res: Response) {
         const { username, chat } = req.body;
