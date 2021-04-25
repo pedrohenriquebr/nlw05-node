@@ -3,10 +3,15 @@ import { User } from "../entities/User";
 import { UsersRepository } from "../repositories/UsersRepository"
 
 class UsersService {
-    async create(email: string): Promise<User> {
-        const usersRepository = getCustomRepository(UsersRepository);
 
-        const userExists = await usersRepository.findOne({
+    private usersRepository: UsersRepository;
+
+    constructor() {
+        this.usersRepository = getCustomRepository(UsersRepository);
+    }
+
+    async create(email: string): Promise<User> {
+        const userExists = await this.usersRepository.findOne({
             email
         });
 
@@ -14,8 +19,8 @@ class UsersService {
             return userExists;
         }
 
-        const user = usersRepository.create({ email });
-        await usersRepository.save(user);
+        const user = this.usersRepository.create({ email });
+        await this.usersRepository.save(user);
 
         return user;
     }

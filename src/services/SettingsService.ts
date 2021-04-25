@@ -9,10 +9,15 @@ interface ISettingsCreate {
 }
 
 class SettingsService {
-    async create({ chat, username }: ISettingsCreate): Promise<Setting> {
-        const settingsRepository = getCustomRepository(SettingsRepository);
+    private settingsRepository : SettingsRepository;
 
-        const userAlreadyExists = await settingsRepository.findOne({
+    constructor(){
+        this.settingsRepository = getCustomRepository(SettingsRepository);
+    }
+
+    async create({ chat, username }: ISettingsCreate): Promise<Setting> {
+       
+        const userAlreadyExists = await this.settingsRepository.findOne({
             username
         });
 
@@ -20,12 +25,12 @@ class SettingsService {
             throw new Error("User Already exists!");
         }
 
-        const settings = settingsRepository.create({
+        const settings = this.settingsRepository.create({
             chat,
             username,
         });
 
-        await settingsRepository.save(settings);
+        await this.settingsRepository.save(settings);
         return settings;
     }
 }
