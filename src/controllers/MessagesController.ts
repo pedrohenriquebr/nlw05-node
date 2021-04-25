@@ -6,7 +6,17 @@ class MessagesController {
         const service = new MessagesService();
 
         const message = await service.create({ admin_id, text, user_id });
-        return res.json(message); 
+        return res.json(message);
+    }
+
+    async showByUser(req: Request, res: Response) {
+        const { id } = req.params;
+
+        const service = new MessagesService();
+
+        const message = await service.listByUser(id);
+        
+        return res.json(message);
     }
 }
 
