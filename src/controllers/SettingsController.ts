@@ -5,7 +5,6 @@ class SettingsController {
         const { username, chat } = req.body;
         const service = new SettingsService();
         const settings = await service.create({ username, chat });
-        console.log(settings);
         return res.json(settings);
     }
 }
